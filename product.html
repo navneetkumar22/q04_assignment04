@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Shopping Cart | Assignment 07</title>
+    
+    
+</head>
+
+<body>
+    <nav>
+        <div>
+            <a href="./index.html">
+                <h3>Products</h3>
+            </a>
+        </div>
+        <h1>Shopping Application</h1>
+        <div class="cart">
+            <a href="#cart">
+                <p>Cart</p>
+            </a>
+            <span id="number">0</span>
+        </div>
+    </nav>
+
+    <section class="product">
+    </section>
+
+    <script>
+        let id = localStorage.getItem('productId');
+        const getThisProduct = (id) => {
+            fetch(`https://fakestoreapi.com/products/${id}`)
+                .then(res => { return res.json() })
+                .then(result => {
+                    let productDiv = document.querySelector('.product');
+                    productDiv.innerHTML = `
+                    <div>
+                      <img src="${result.image}" alt="product">
+                    </div>
+                    <div class="product-details">
+                      <h1>${result.title}</h1>
+                      <p class="desc">${result.description}</p>
+                      <p><span class="product-price">Price:&nbsp;</span>${result.price}</p>
+                      <button>Buy Now</button>
+                    </div>
+                    `
+                })
+                .catch(err => { console.log(err); })
+
+                // localStorage.clear('productId');
+        }
+
+        getThisProduct(id);
+    </script>
+</body>
+
+</html>
